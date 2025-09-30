@@ -1,11 +1,8 @@
 package arrays;
 
 public class MaximumConsecutiveOnes {
-    public static void main(String[] args) {
-        int[] arr = {1, 0, 1, 1, 0, 1};
-        System.out.println(findMaxConsecutiveOnes(arr));
-    }
-
+    
+    //Function to find the maxConsecutive ones
     public static int findMaxConsecutiveOnes(int[] arr) {
         int count = 0, maxCount = 0;
         for (int num : arr) {
@@ -17,5 +14,11 @@ public class MaximumConsecutiveOnes {
             }
         }
         return maxCount;
+    }
+
+    // Main method to test
+    public static void main(String[] args) {
+        int[] arr = {1, 0, 1, 1, 0, 1};
+        System.out.println(findMaxConsecutiveOnes(arr));
     }
 }
