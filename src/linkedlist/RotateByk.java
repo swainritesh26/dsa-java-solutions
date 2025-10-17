@@ -2,43 +2,43 @@ package linkedlist;
 
 public class RotateByk {
 
-    // ✅ Function to rotate the linked list to the right by k places
-    // Example: 1→2→3→4→5, k=2 → 4→5→1→2→3
     public Node rotateRight(Node head, int k) {
+        // 🧩 Edge cases
         if (head == null || head.next == null || k == 0) return head;
 
+        Node slow = head;
+        Node fast = head;
         Node temp = head;
-        int n = 1;
+        int n = 0;
 
-        // Count total number of nodes
-        while (temp.next != null) {
-            temp = temp.next;
+        // ✅ Step 1: Count the total number of nodes
+        while (temp != null) {
             n++;
+            temp = temp.next;
         }
 
-        // Make the list circular
-        temp.next = head;
-
-        // Normalize k if it's greater than length
+        // ✅ Step 2: Handle case when k >= n
         k = k % n;
-        if (k == 0) {
-            temp.next = null; // break circle
-            return head;
+        if (k == 0) return head;
+
+        // ✅ Step 3: Move fast pointer k steps ahead
+        for (int i = 1; i <= k; i++) {
+            fast = fast.next;
         }
 
-        // Find the node just before the new head (n - k steps)
-        int stepsToNewHead = n - k;
-        Node newTail = head;
-        for (int i = 1; i < stepsToNewHead; i++) {
-            newTail = newTail.next;
+        // ✅ Step 4: Move both slow and fast one step each
+        // until fast reaches the last node
+        while (fast.next != null) {
+            slow = slow.next;
+            fast = fast.next;
         }
 
-        // The node after newTail will be new head
-        Node newHead = newTail.next;
+        // ✅ Step 5: Break and rearrange pointers
+        Node newHead = slow.next;  // new head after rotation
+        slow.next = null;          // break the link
+        fast.next = head;          // connect old tail to old head
 
-        // Break the circle
-        newTail.next = null;
-
+        // ✅ Step 6: Return new head
         return newHead;
     }
 }
